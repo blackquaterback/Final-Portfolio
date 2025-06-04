@@ -1,0 +1,91 @@
+Portfolio Extraction Code Structure a
+=====================================
+
+1. main.py
+----------
+Purpose: Entry point of the application
+- Contains list of all supported AMC names
+- Creates directories for each AMC
+- Matches AMC names to appropriate parsers
+- Processes portfolio files and saves output
+
+2. core/FundPortfolioParser.py
+-----------------------------
+Purpose: Abstract base class for all parsers
+- Defines the core parsing structure and workflow
+- Handles Excel file reading (xls, xlsx, xlsb formats)
+- Manages sheet processing and data combination
+- Provides error handling framework
+
+3. portfolio/parser.py
+---------------------
+Purpose: Contains all AMC-specific parser implementations
+- Each parser class (HDFCParser, ICICIParser, etc.) inherits from FundPortfolioParser
+- Implements AMC-specific sheet reading and cleaning methods
+- Manages index sheet reading for fund name mapping
+- Connected by: main.py uses these parsers
+- Connects to: 
+  * core/FundPortfolioParser.py (inherits from)
+  * portfolio/eparse.py (uses cleaning functions)
+
+4. portfolio/eparse.py
+---------------------
+Purpose: Contains detailed cleaning functions for each AMC
+- Implements specific data cleaning logic for each AMC
+- Handles column standardization
+- Processes fund names and ISINs
+- Converts market values
+- Manages data type conversions
+
+5. portfolio/utils.py
+--------------------
+Purpose: Utility functions used across the project
+- Common helper functions
+- Data validation utilities
+- Shared formatting functions
+
+6. portfolio/eparse_legacy/
+--------------------------
+Purpose: Directory containing legacy parsing scripts
+- Individual parsing scripts for different AMCs
+- Historical implementations
+- Reference for standardization
+
+
+This structure ensures:
+- Modular design
+- Easy addition of new AMCs
+- Consistent data processing
+- Standardized output format
+- Maintainable codebase 
+
+Mutual Fund Portfolio Data Processing System
+
+Performance:
+- Each AMC's portfolio data is processed in less than a minute
+- Efficient data extraction and standardization
+- Automated fund name and ISIN validation
+
+Currently Supported AMCs:
+1. PPFAS Mutual Fund
+2. HDFC Mutual Fund
+3. ICICI Prudential Mutual Fund
+4. Axis Mutual Fund
+5. Mirae Asset Mutual Fund
+6. Nippon India Mutual Fund
+7. Quant Mutual Fund
+8. SBI Mutual Fund
+9. Kotak Mutual Fund
+10. Bank of India Mutual Fund
+11. Canara Robeco Mutual Fund
+12. DSP Mutual Fund
+13. Invesco Mutual Fund
+14. JM Financial Mutual Fund
+15. LIC Mutual Fund
+16. Motilal Oswal Mutual Fund
+17. Navi Mutual Fund
+
+Remaining Funds and their issues:- 
+-Franklin: They publish their monthly portfolio disclosure embedded in their webpage
+-Edelweiss: Do not have the record of crucial details like ISIN, Industry etc.
+-Union: The data is scattered in the internet pretty inconsisently, finding it hard to get the data 
