@@ -1,0 +1,176 @@
+# Mutual Fund Analysis Tools
+
+This repository contains a set of Python scripts for analyzing mutual fund NAV (Net Asset Value) data and generating various visualizations and reports.
+
+## Current Limitations and Updates
+
+**Note on Scheme Unification:**
+Some Asset Management Companies currently have schemes that are not properly unified in the data processing:
+- UTI Mutual Fund: Few schemes have inconsistent naming conventions
+- Kotak Mutual Fund: Some schemes have multiple entries due to data format variations
+- Aditya Birla Sun Life: Certain schemes need standardization in their identifiers
+
+These issues are being addressed and will be resolved shortly through:
+- Standardization of scheme names
+- Unification of duplicate entries
+- Implementation of consistent ISIN mapping
+- Enhanced data validation checks
+
+The fix is expected to be implemented in the next update, ensuring complete and accurate analysis across all schemes.
+
+## Execution Times
+
+### Processing Times by Script
+1. **nav.py**
+   - Total processing time: ~10-15 minutes
+   - Main tasks:
+     - Reading multiple NAV files (~500MB total data): 3-4 minutes
+     - Data cleaning and validation: 2-3 minutes
+     - Calculating returns: 4-5 minutes
+     - Generating Excel output: 1-2 minutes
+
+2. **plot_fund_timeseries.py**
+   - Total processing time: ~20-25 minutes
+   - Main tasks:
+     - Reading NAV data: 2-3 minutes
+     - Generating individual plots (~18 AMCs × multiple schemes): 15-20 minutes
+     - Saving high-resolution plots: 2-3 minutes
+
+3. **plot_nav_returns.py**
+   - Total processing time: ~5-7 minutes
+   - Main tasks:
+     - Reading Excel data: 1-2 minutes
+     - Generating visualization plots: 3-4 minutes
+     - Saving plots: 1 minute
+
+The analysis covers the following AMCs:
+1. HDFC Mutual Fund
+2. Mirae Asset
+3. Parag Parikh
+4. Edelweiss
+5. Franklin Templeton
+6. Union Mutual Fund
+7. UTI Mutual Fund
+8. Kotak Mutual Fund
+9. Canara Robeco
+10. Quant Mutual Fund
+11. DSP Mutual Fund
+12. Invesco
+13. Axis Mutual Fund
+14. Navi Mutual Fund
+15. JM Financial
+16. ICICI Prudential
+17. LIC Mutual Fund
+18. Aditya Birla Sun Life
+
+## Scripts Overview
+
+### 1. nav.py
+The main script for processing mutual fund NAV data.
+
+**Key Features:**
+- Reads multiple NAV history files in text format
+- Processes data for multiple Asset Management Companies (AMCs)
+- Calculates various return metrics:
+  - 1 Week Return
+  - 1 Month Return
+  - 1 Year Return
+  - 3 Year Return
+  - 5 Year Return
+  - YTD (Year-to-Date) Return
+  - Total Return
+- Generates Excel output (`nav_returns.xlsx`) with:
+  - Complete data in 'All Returns' sheet
+  - Top performers sheets for each time period
+  - AMC-wise top performers analysis
+
+### 2. plot_nav_returns.py
+Visualization script for analyzing returns data.
+
+**Key Features:**
+- Creates visualizations from the `nav_returns.xlsx` file
+- Generates multiple types of plots:
+  - Performance comparison across different time periods
+  - Top performing funds
+  - AMC-wise performance analysis
+- Saves plots in the `nav_returns_plots` directory
+- Includes:
+  - Bar charts for return comparisons
+  - Performance rankings
+  - Time-series analysis
+
+### 3. plot_fund_timeseries.py
+Detailed time-series analysis and visualization tool.
+
+**Key Features:**
+- Creates individual plots for each mutual fund scheme
+- Organizes plots by AMC in separate folders
+- For each fund, generates:
+  - NAV progression over time
+  - Return metrics overlay (1W, 1M, 1Y, 3Y, 5Y, Total)
+  - Clear visualization of performance trends
+- Output Structure:
+  - Creates `fund_plots_by_amc` directory
+  - Separate subdirectories for each AMC
+  - High-resolution PNG plots for each scheme
+
+## Output Directory Structure
+
+```
+workspace/
+├── nav_returns.xlsx          # Main analysis output
+├── fund_plots_by_amc/       # Time series plots by AMC
+│   ├── HDFC/
+│   ├── Aditya Birla Sun/
+│   ├── Parag Parikh/
+│   └── [Other AMCs]/
+└── nav_returns_plots/       # Return analysis visualizations
+```
+
+1. **Data Input**
+   - Reads NAV history files (*.txt format)
+   - Supports multiple AMCs and schemes
+
+2. **Analysis (nav.py)**
+   - Data cleaning and validation
+   - Return calculations
+   - Performance ranking
+   - Excel report generation
+
+3. **Visualizations**
+   - Time series plots (plot_fund_timeseries.py)
+   - Return analysis plots (plot_nav_returns.py)
+
+
+- **Data Validation**
+  - ISIN verification
+  - NAV data validation
+  - Date range checks
+
+- **Performance Metrics**
+  - Multiple time period returns
+  - Comparative analysis
+  - Ranking systems
+
+- **Visualization Standards**
+  - High-resolution outputs (300 DPI)
+  - Clear labeling and legends
+  - Consistent formatting
+  - Grid lines for readability
+  - Value labels on plots
+
+
+1. **Input Requirements**
+   - NAV history files should be in text format
+   - Semicolon-separated values
+   - Required columns: Scheme Code, Scheme Name, ISIN, NAV, Date
+
+2. **Output Files**
+   - Excel reports with multiple sheets
+   - PNG format for all plots
+   - Organized directory structure
+
+3. **Best Practices**
+   - Keep input files in the workspace directory
+   - Check for required dependencies
+   - Ensure sufficient disk space for plot generation 
